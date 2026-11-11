@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical SEO Audit - imetal.com.ve</title>
+<meta name="description" content="GEO visibility baseline for IMETAL, C.A. â€” 90 observations across ChatGPT, Gemini and Perplexity.">
+<link rel="canonical" href="https://risquezzz.github.io/report/en.html">
+<link rel="stylesheet" href="report.css">
+</head><body>
+<header class="rp-head"><div class="rp-wrap">
+<a class="rp-back" href="../index.html">&larr; Back to portfolio</a>
+</div></header>
+<main class="rp-wrap">
+<h1>Technical SEO Audit — imetal.com.ve</h1>
+<p><strong>External review of crawling, indexing, structured data, performance and content architecture</strong></p>
+<table>
+<thead><tr><th>Site</th><th>https://imetal.com.ve</th></tr></thead><tbody>
+<tr><td>Date</td><td>11 November 2026</td></tr>
+<tr><td>Method</td><td>External crawl plus analysis of HTML, headers and assets</td></tr>
+<tr><td>Scope</td><td>1 page, 35 images, 15 links</td></tr>
+<tr><td>Author</td><td>Cristóbal Rísquez</td></tr>
+</tbody></table>
+<hr>
+<h2>1. Executive summary</h2>
+<p>The site is technically healthy at the basics and structurally empty where it matters.</p>
+<p>HTTPS with HSTS, Brotli compression, one-year caching on images, correct 404 handling, a viewport tag, a self-referencing canonical and alt text on all 44 images: hygiene is solved. Response time is 98 ms and the HTML travels compressed from 104 KB to 22 KB.</p>
+<p>The two problems that matter are not hygiene.</p>
+<p><strong>First, the structured data does not work.</strong> The <code>application/ld+json</code> block contains the JSON and then, immediately after it, a security JavaScript snippet pasted inside the same <code>&lt;script&gt;</code>. The result is a 2,043-character block that no parser can read. The <code>LocalBusiness</code> someone carefully wrote is not being interpreted by Google or by any AI engine.</p>
+<p><strong>Second, the site is a single page.</strong> Anchor navigation, zero internal URLs, a sitemap with one entry and 1,172 words for five service lines. No service pages, no case studies, no technical content.</p>
+<p>That second point explains the GEO baseline result: IMETAL received zero mentions across 18 observations of conceptual queries. It is not an engine failure; there are no documents to retrieve.</p>
+<p><strong>Conclusion:</strong> fixing the Schema takes half an hour. Building the content architecture takes weeks. The first buys immediate credibility; the second is what changes visibility.</p>
+<hr>
+<h2>2. Scope and method</h2>
+<p>The review was performed from the outside, without access to Google Search Console or server logs.</p>
+<p><strong>What was measured.</strong></p>
+<ul>
+<li>HTTP response, headers and host redirection behaviour.</li>
+<li><code>robots.txt</code> and <code>sitemap.xml</code>.</li>
+<li>HTML structure: title, meta description, headings, canonical, <code>hreflang</code>, JSON-LD.</li>
+<li>Inventory of internal and external links.</li>
+<li>Weight and format of every image asset declared on the page.</li>
+<li>Image loading attributes: <code>loading</code>, <code>srcset</code>, dimensions.</li>
+<li>Response caching for HTML and static assets.</li>
+<li>Behaviour on a non-existent URL.</li>
+</ul>
+<p><strong>What could not be measured.</strong> Real indexation data (indexed pages, queries, impressions), server logs and field Core Web Vitals. PageSpeed Insights returned a 429 during the session, so performance is assessed through its structural causes rather than a lab score.</p>
+<p><strong>Why this is declared.</strong> An audit without Search Console sees half the problem. Stating it lets the reader know what is missing, and prevents indexation conclusions these data cannot support.</p>
+<hr>
+<h2>3. Site inventory</h2>
+<table>
+<thead><tr><th>Dimension</th><th>Value</th></tr></thead><tbody>
+<tr><td>HTML pages</td><td>1</td></tr>
+<tr><td>URLs in sitemap</td><td>1</td></tr>
+<tr><td>Internal path links</td><td>0</td></tr>
+<tr><td>Anchor links</td><td>5</td></tr>
+<tr><td>Visible words</td><td>~1,172</td></tr>
+<tr><td>Images</td><td>35 files, 7,377 KB</td></tr>
+<tr><td>Heaviest image</td><td>607 KB</td></tr>
+<tr><td>JSON-LD blocks</td><td>1, invalid</td></tr>
+<tr><td>English version</td><td>Does not exist</td></tr>
+</tbody></table>
+<p>Primary navigation (<code>#inicio</code>, <code>#servicios</code>, <code>#nosotros</code>, <code>#clientes</code>, <code>#contacto</code>) points to sections of the same page. There is not a single additional URL.</p>
+<hr>
+<h2>4. Findings</h2>
+<h3>4.1. Critical — The JSON-LD cannot be parsed</h3>
+<p><strong>Evidence.</strong> The <code>application/ld+json</code> block is 2,043 characters long. It begins with a well-formed <code>LocalBusiness</code> object and ends with JavaScript:</p>
+<p>```</p>
+<p>"sameAs": ["https://wa.me/582834006523"]</p>
+<p>}</p>
+<p>// ===== SECURITY =====</p>
+<p>...</p>
+<p>setInterval(check, 1000); })();</p>
+<p>```</p>
+<p><strong>Why it happens.</strong> The template's security script was inserted inside the Schema tag instead of in its own <code>&lt;script&gt;</code>.</p>
+<p><strong>Impact.</strong> Google, Bing and generative engines cannot read the block. <code>LocalBusiness</code>, address, coordinates, opening hours and <code>foundingDate</code> are all lost: precisely the data that helps an entity be understood without ambiguity.</p>
+<p><strong>Fix.</strong> Move the JSON into its own <code>&lt;script type="application/ld+json"&gt;</code> and close the block before any JavaScript. Validate with the Rich Results Test and the Schema.org validator. A 30-minute change.</p>
+<h3>4.2. Critical — A single page has nothing to retrieve</h3>
+<p><strong>Evidence.</strong> One HTML document, five anchors, 1,172 words, one URL in the sitemap.</p>
+<p><strong>Why it matters for GEO.</strong> Generative engines retrieve chunks. A one-page site offers a single chunk and competes against rivals publishing guides, service pages and case studies. When someone asks "how is a major overhaul of a centrifugal pump performed", there is no IMETAL document answering that question, so it cannot be cited.</p>
+<p><strong>Fix.</strong> Turn each section into its own URL: five service pages, one per line (machining, maintenance, rotating equipment rebuilding, infrastructure, logistics). Each with its own H1, technical content and service Schema.</p>
+<h3>4.3. High — 7.4 MB of unoptimised images</h3>
+<p><strong>Evidence.</strong> 35 JPEG images, 7,377 KB in total. The heaviest is 607 KB, followed by 590, 575 and 510 KB. Zero <code>loading="lazy"</code> attributes, zero <code>srcset</code>, zero <code>width</code>/<code>height</code>, zero WebP or AVIF.</p>
+<p><strong>Impact.</strong> On mobile the carousel image competes for LCP. Without declared dimensions there is layout shift. Without <code>srcset</code>, a phone downloads the desktop asset.</p>
+<p><strong>Fix.</strong> Convert to WebP at quality 80, generate three sizes per image, declare <code>width</code> and <code>height</code>, add <code>loading="lazy"</code> to everything below the fold. Total weight can drop from 7.4 MB to under 1 MB with no visible loss.</p>
+<h3>4.4. High — <code>www</code> and non-<code>www</code> serve the same content</h3>
+<p><strong>Evidence.</strong> <code>https://imetal.com.ve/</code>, <code>https://www.imetal.com.ve/</code>, <code>http://imetal.com.ve/</code> and <code>http://www.imetal.com.ve/</code> all return 200. There is no 301.</p>
+<p><strong>Impact.</strong> Two hosts with identical content. The canonical mitigates duplication but does not consolidate signals or stop links being shared to the wrong host.</p>
+<p><strong>Fix.</strong> Permanent 301 from <code>www</code> to the main domain (or the reverse, but one direction only) and from <code>http</code> to <code>https</code>.</p>
+<h3>4.5. Medium — Sitemap with a single URL and no <code>lastmod</code></h3>
+<p>The sitemap declares only the homepage. That is consistent with the current state of the site, but it stops being useful as soon as service pages exist. Adding <code>lastmod</code> lets crawlers know what changed.</p>
+<h3>4.6. Medium — No English version</h3>
+<p><strong>Evidence.</strong> The interface shows an <code>ES | EN</code> selector, but no <code>/en/</code> path exists and there is no <code>hreflang</code>.</p>
+<p><strong>Impact.</strong> English queries are what generate most answers in ChatGPT, Gemini and Perplexity for an international buyer. A Spanish-only site is outside that conversation.</p>
+<p><strong>Fix.</strong> Publish the main pages in English with their own URLs and reciprocal <code>hreflang</code>. Not machine translation: written content.</p>
+<h3>4.7. Medium — Weak entity graph</h3>
+<p><strong>Evidence.</strong> The Schema's <code>sameAs</code> points only to WhatsApp. No LinkedIn, no Google Business Profile, no sector directories.</p>
+<p><strong>Impact.</strong> Engines resolve entities by comparing independent sources. A single weak reference makes it hard to distinguish "IMETAL C.A." from similarly named companies, a real problem in this sector.</p>
+<p><strong>Fix.</strong> Add LinkedIn, Google Business Profile and the directories where the company already appears.</p>
+<h3>4.8. Low — The H1 loses spaces when parsed</h3>
+<p><strong>Evidence.</strong> The extracted H1 text is <code>SolucionesIndustrialesde Alto Nivel</code>, with no spaces between the first words.</p>
+<p><strong>Cause.</strong> The H1 is built from several <code>&lt;span&gt;</code> elements with no whitespace between them. It looks right; to a parser it is a single word.</p>
+<p><strong>Fix.</strong> Add real spaces between the spans or use one text node. Low impact, one-minute fix.</p>
+<hr>
+<h2>5. What works and should not be touched</h2>
+<ul>
+<li><strong>HTTPS with HSTS</strong> (<code>max-age=31536000; includeSubDomains</code>).</li>
+<li><strong>Brotli compression</strong>: HTML drops from 104 KB to 22 KB.</li>
+<li><strong>98 ms TTFB</strong> in this measurement.</li>
+<li><strong>One-year caching</strong> on images; one day on HTML, appropriate.</li>
+<li><strong>Correct 404</strong>, with no soft redirect to the homepage.</li>
+<li><strong><code>X-Content-Type-Options: nosniff</code></strong>.</li>
+<li><strong>Correct <code>viewport</code></strong>.</li>
+<li><strong>44 images with alt text</strong>, none missing.</li>
+<li><strong>71-character title</strong> and <strong>113-character meta description</strong>: within range.</li>
+<li><strong>Correct self-referencing canonical</strong>.</li>
+</ul>
+<p>The technical base is not the problem. It is worth saying so: whoever inherits this site should not rebuild what already works.</p>
+<hr>
+<h2>6. Priorities: impact against effort</h2>
+<table>
+<thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th><th>Timing</th></tr></thead><tbody>
+<tr><td>1</td><td>Separate and validate the JSON-LD</td><td>High</td><td>30 min</td><td>Immediate</td></tr>
+<tr><td>2</td><td>301 redirect for <code>www</code> and <code>http</code></td><td>Medium</td><td>15 min</td><td>Immediate</td></tr>
+<tr><td>3</td><td>Compress images, add lazy loading and dimensions</td><td>High</td><td>3 h</td><td>Week 1</td></tr>
+<tr><td>4</td><td>Sitemap with all URLs and <code>lastmod</code></td><td>Medium</td><td>30 min</td><td>Week 1</td></tr>
+<tr><td>5</td><td>Five service pages with their own URLs</td><td>Very high</td><td>20 h</td><td>Month 1</td></tr>
+<tr><td>6</td><td>English version with <code>hreflang</code></td><td>High</td><td>12 h</td><td>Month 1</td></tr>
+<tr><td>7</td><td>Extend <code>sameAs</code> with LinkedIn and GBP</td><td>Medium</td><td>1 h</td><td>Month 1</td></tr>
+<tr><td>8</td><td>Fix H1 spacing</td><td>Low</td><td>10 min</td><td>Month 1</td></tr>
+</tbody></table>
+<p>The first three actions total under four hours and resolve one critical and one high-severity issue. There is no reason to wait.</p>
+<hr>
+<h2>7. How this connects to the GEO baseline</h2>
+<p>The two studies explain each other.</p>
+<p>The baseline measured <strong>what happens</strong>: 44.4% visibility, zero mentions across the six conceptual prompts, 24.4% verifiable citations.</p>
+<p>This audit explains <strong>why</strong>: there are no documents to retrieve, and the Schema that should reinforce the entity is not parsed.</p>
+<p>Together they define <strong>what to do</strong>: Schema and redirects first, then service pages, and only then measure again. The sequence matters: publishing content on a site with broken structured data leaves half the work without effect.</p>
+<hr>
+<h2>8. Limitations</h2>
+<ol>
+<li><strong>No Search Console or server logs.</strong> Real indexation, queries and bot crawling were not assessed.</li>
+<li><strong>No field Core Web Vitals.</strong> PageSpeed Insights returned a 429 during the session; performance is judged by structural causes, not a score.</li>
+<li><strong>Single measurement.</strong> Response times vary with network and time of day.</li>
+<li><strong>No CMS access.</strong> Fixes are described at implementation level, not for a specific file.</li>
+<li><strong>No backlink audit.</strong> Link profile and domain authority were not measured.</li>
+</ol>
+<hr>
+<h2>9. Conclusion</h2>
+<p>This site does not need a rebuild. It needs two half-hour fixes and one architectural decision that takes a month.</p>
+<p>The Schema fix is the highest-return item in the whole project: half an hour to make the entity readable again. The content architecture is what changes the outcome, and it is what no competitor in the sector has done yet.</p>
+</main>
+<footer class="rp-foot"><div class="rp-wrap">
+<span>CristÃ³bal RÃ­squez â€” SEO &amp; GEO Analyst</span>
+<span><a href="../index.html">risquezzz.github.io</a></span>
+</div></footer>
+</body></html>

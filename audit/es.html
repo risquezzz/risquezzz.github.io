@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditoria SEO tecnica - imetal.com.ve</title>
+<meta name="description" content="GEO visibility baseline for IMETAL, C.A. â€” 90 observations across ChatGPT, Gemini and Perplexity.">
+<link rel="canonical" href="https://risquezzz.github.io/report/es.html">
+<link rel="stylesheet" href="report.css">
+</head><body>
+<header class="rp-head"><div class="rp-wrap">
+<a class="rp-back" href="../index.html">&larr; Volver al portafolio</a>
+</div></header>
+<main class="rp-wrap">
+<h1>Auditoría SEO técnica — imetal.com.ve</h1>
+<p><strong>Revisión externa de rastreo, indexación, datos estructurados, rendimiento y arquitectura de contenido</strong></p>
+<table>
+<thead><tr><th>Sitio</th><th>https://imetal.com.ve</th></tr></thead><tbody>
+<tr><td>Fecha</td><td>11 de noviembre de 2026</td></tr>
+<tr><td>Método</td><td>Crawl externo y análisis de HTML, cabeceras y recursos</td></tr>
+<tr><td>Alcance</td><td>1 página, 35 imágenes, 15 enlaces</td></tr>
+<tr><td>Autor</td><td>Cristóbal Rísquez</td></tr>
+</tbody></table>
+<hr>
+<h2>1. Resumen ejecutivo</h2>
+<p>El sitio está técnicamente sano en lo básico y estructuralmente vacío en lo importante.</p>
+<p>HTTPS con HSTS, compresión Brotli, caché de un año en imágenes, 404 correcto, <code>viewport</code>, <code>canonical</code> autorreferente y <code>alt</code> en las 44 imágenes: la higiene está resuelta. El tiempo de respuesta es de 98 ms y el HTML viaja comprimido de 104 KB a 22 KB.</p>
+<p>Los dos problemas que importan no son de higiene.</p>
+<p><strong>Primero, los datos estructurados no funcionan.</strong> El bloque <code>application/ld+json</code> contiene el JSON y, a continuación, código JavaScript de seguridad pegado dentro del mismo <code>&lt;script&gt;</code>. El resultado es un bloque de 2.043 caracteres que ningún parser puede leer. El <code>LocalBusiness</code> que alguien escribió con esfuerzo no está siendo interpretado por Google ni por los motores de IA.</p>
+<p><strong>Segundo, el sitio es una sola página.</strong> Navegación por anclas, cero URLs internas, sitemap con una única entrada y 1.172 palabras para cinco líneas de servicio. No hay páginas de servicio, ni casos, ni contenido técnico.</p>
+<p>Ese segundo punto explica el resultado del baseline GEO: IMETAL obtuvo cero menciones en 18 observaciones de consultas conceptuales. No es un fallo de los motores; es que no existen documentos que recuperar.</p>
+<p><strong>Conclusión:</strong> arreglar el Schema toma media hora. Construir la arquitectura de contenido toma semanas. Lo primero da credibilidad inmediata; lo segundo es lo que cambia la visibilidad.</p>
+<hr>
+<h2>2. Alcance y método</h2>
+<p>La revisión se hizo desde fuera, sin acceso a Google Search Console ni a los registros del servidor.</p>
+<p><strong>Qué se midió.</strong></p>
+<ul>
+<li>Respuesta HTTP, cabeceras y redirecciones del host.</li>
+<li><code>robots.txt</code> y <code>sitemap.xml</code>.</li>
+<li>Estructura del HTML: título, meta description, encabezados, canonical, <code>hreflang</code>, JSON-LD.</li>
+<li>Inventario de enlaces internos y externos.</li>
+<li>Peso y formato de todos los recursos de imagen declarados en la página.</li>
+<li>Atributos de carga de imágenes: <code>loading</code>, <code>srcset</code>, dimensiones.</li>
+<li>Caché de respuesta para HTML y para activos estáticos.</li>
+<li>Comportamiento ante una URL inexistente.</li>
+</ul>
+<p><strong>Qué no se pudo medir.</strong> Datos de indexación reales (páginas indexadas, consultas, impresiones), registros del servidor y Core Web Vitals de campo. PageSpeed Insights devolvió error 429 durante la sesión, así que el rendimiento se evalúa por sus causas estructurales, no por una puntuación de laboratorio.</p>
+<p><strong>Por qué se declara.</strong> Una auditoría sin Search Console ve la mitad del problema. Declararlo permite que quien lea sepa qué falta, y evita conclusiones sobre indexación que estos datos no sostienen.</p>
+<hr>
+<h2>3. Inventario del sitio</h2>
+<table>
+<thead><tr><th>Dimensión</th><th>Valor</th></tr></thead><tbody>
+<tr><td>Páginas HTML</td><td>1</td></tr>
+<tr><td>URLs en el sitemap</td><td>1</td></tr>
+<tr><td>Enlaces internos (rutas)</td><td>0</td></tr>
+<tr><td>Enlaces de ancla</td><td>5</td></tr>
+<tr><td>Palabras visibles</td><td>~1.172</td></tr>
+<tr><td>Imágenes</td><td>35 archivos, 7.377 KB</td></tr>
+<tr><td>Imagen más pesada</td><td>607 KB</td></tr>
+<tr><td>Bloques JSON-LD</td><td>1, inválido</td></tr>
+<tr><td>Versión en inglés</td><td>No existe</td></tr>
+</tbody></table>
+<p>La navegación principal (<code>#inicio</code>, <code>#servicios</code>, <code>#nosotros</code>, <code>#clientes</code>, <code>#contacto</code>) apunta a secciones de la misma página. No hay una sola URL adicional.</p>
+<hr>
+<h2>4. Hallazgos</h2>
+<h3>4.1. Crítico — El JSON-LD no se puede parsear</h3>
+<p><strong>Evidencia.</strong> El bloque <code>application/ld+json</code> mide 2.043 caracteres. Empieza con un objeto <code>LocalBusiness</code> correctamente formado y termina con código JavaScript:</p>
+<p>```</p>
+<p>"sameAs": ["https://wa.me/582834006523"]</p>
+<p>}</p>
+<p>// ===== SECURITY =====</p>
+<p>...</p>
+<p>setInterval(check, 1000); })();</p>
+<p>```</p>
+<p><strong>Por qué ocurre.</strong> El script de seguridad de la plantilla se insertó dentro de la etiqueta del Schema, en lugar de en un <code>&lt;script&gt;</code> propio.</p>
+<p><strong>Impacto.</strong> Google, Bing y los motores generativos no leen el bloque. Se pierden <code>LocalBusiness</code>, dirección, coordenadas, horario y <code>foundingDate</code>: exactamente los datos que ayudan a que una entidad se entienda sin ambigüedad.</p>
+<p><strong>Solución.</strong> Separar el JSON en su propio <code>&lt;script type="application/ld+json"&gt;</code> y cerrar el bloque antes de cualquier JavaScript. Validar con el Rich Results Test y con el validador de Schema.org. Es un cambio de 30 minutos.</p>
+<h3>4.2. Crítico — Una sola página no tiene nada que recuperar</h3>
+<p><strong>Evidencia.</strong> Un documento HTML, cinco anclas, 1.172 palabras, sitemap con una URL.</p>
+<p><strong>Por qué importa para GEO.</strong> Los motores generativos recuperan fragmentos. Un sitio de una página ofrece un único fragmento, y compite contra competidores que publican guías, fichas de servicio y casos. Cuando alguien pregunta "cómo se hace el mantenimiento mayor de una bomba centrífuga", no hay documento de IMETAL que responda a esa pregunta, así que no puede ser citado.</p>
+<p><strong>Solución.</strong> Convertir cada sección en una URL propia: cinco páginas de servicio, una por línea (mecanizado, mantenimiento, reconstrucción de rotativos, infraestructura, logística). Cada una con su H1, su contenido técnico y su Schema de servicio.</p>
+<h3>4.3. Alto — 7,4 MB de imágenes sin optimización</h3>
+<p><strong>Evidencia.</strong> 35 imágenes JPEG, 7.377 KB en total. La mayor pesa 607 KB, seguida de 590, 575 y 510 KB. Cero atributos <code>loading="lazy"</code>, cero <code>srcset</code>, cero <code>width</code>/<code>height</code>, cero formatos WebP o AVIF.</p>
+<p><strong>Impacto.</strong> En móvil, la imagen del carrusel compite con el LCP. Sin dimensiones declaradas hay desplazamiento de layout. Sin <code>srcset</code>, un teléfono descarga la versión de escritorio.</p>
+<p><strong>Solución.</strong> Convertir a WebP con calidad 80, generar tres tamaños por imagen, declarar <code>width</code> y <code>height</code>, añadir <code>loading="lazy"</code> a todo lo que no esté sobre el pliegue. El peso total puede bajar de 7,4 MB a menos de 1 MB sin pérdida visible.</p>
+<h3>4.4. Alto — <code>www</code> y sin <code>www</code> sirven lo mismo</h3>
+<p><strong>Evidencia.</strong> <code>https://imetal.com.ve/</code>, <code>https://www.imetal.com.ve/</code>, <code>http://imetal.com.ve/</code> y <code>http://www.imetal.com.ve/</code> devuelven 200. No hay 301.</p>
+<p><strong>Impacto.</strong> Dos hosts con contenido idéntico. El <code>canonical</code> mitiga la duplicación, pero no consolida señales ni evita que se compartan enlaces al host equivocado.</p>
+<p><strong>Solución.</strong> Redirección 301 permanente de <code>www</code> al dominio principal (o al contrario, pero una sola dirección) y de <code>http</code> a <code>https</code>.</p>
+<h3>4.5. Medio — Sitemap con una sola URL y sin <code>lastmod</code></h3>
+<p>El sitemap declara únicamente la portada. Es coherente con el estado actual del sitio, pero deja de ser útil en cuanto existan páginas de servicio. Añadir <code>lastmod</code> permite a los rastreadores saber qué cambió.</p>
+<h3>4.6. Medio — No hay versión en inglés</h3>
+<p><strong>Evidencia.</strong> La interfaz muestra un selector <code>ES | EN</code>, pero no existe ninguna ruta <code>/en/</code> y no hay <code>hreflang</code>.</p>
+<p><strong>Impacto.</strong> Las consultas en inglés son las que generan más respuestas en ChatGPT, Gemini y Perplexity para un comprador internacional. Un sitio solo en español queda fuera de esa conversación.</p>
+<p><strong>Solución.</strong> Publicar las páginas principales en inglés con URL propia y <code>hreflang</code> recíproco. No un traductor automático, sino contenido redactado.</p>
+<h3>4.7. Medio — Grafo de entidad débil</h3>
+<p><strong>Evidencia.</strong> El <code>sameAs</code> del Schema apunta solo a WhatsApp. No hay LinkedIn, Google Business Profile ni directorios sectoriales.</p>
+<p><strong>Impacto.</strong> Los motores resuelven entidades comparando fuentes independientes. Una sola referencia débil dificulta distinguir "IMETAL C.A." de otras empresas con nombres parecidos, un problema real en este sector.</p>
+<p><strong>Solución.</strong> Añadir LinkedIn, Google Business Profile y los directorios donde la empresa ya aparece.</p>
+<h3>4.8. Bajo — El H1 pierde los espacios al parsearse</h3>
+<p><strong>Evidencia.</strong> El texto extraído del H1 es <code>SolucionesIndustrialesde Alto Nivel</code>, sin espacios entre las primeras palabras.</p>
+<p><strong>Causa.</strong> El H1 está construido con varios <code>&lt;span&gt;</code> sin espacio entre ellos. Visualmente se ve bien; para un parser es una sola palabra.</p>
+<p><strong>Solución.</strong> Añadir espacios reales entre los spans o usar un solo nodo de texto. Impacto bajo, corrección de un minuto.</p>
+<hr>
+<h2>5. Lo que está bien y no hay que tocar</h2>
+<ul>
+<li><strong>HTTPS con HSTS</strong> (<code>max-age=31536000; includeSubDomains</code>).</li>
+<li><strong>Compresión Brotli</strong>: el HTML pasa de 104 KB a 22 KB.</li>
+<li><strong>TTFB de 98 ms</strong> en la medición.</li>
+<li><strong>Caché de un año</strong> en imágenes; un día en HTML, adecuado.</li>
+<li><strong>404 correcto</strong>, sin redirección blanda a la portada.</li>
+<li><strong><code>X-Content-Type-Options: nosniff</code></strong>.</li>
+<li><strong><code>viewport</code></strong> correcto.</li>
+<li><strong>44 imágenes con <code>alt</code></strong>, ninguna sin texto alternativo.</li>
+<li><strong>Título de 71 caracteres</strong> y <strong>meta description de 113</strong>: dentro de rango.</li>
+<li><strong><code>canonical</code> autorreferente</strong> correcto.</li>
+</ul>
+<p>La base técnica no es el problema. Conviene decirlo: quien herede este sitio no debe rehacer lo que ya funciona.</p>
+<hr>
+<h2>6. Prioridades: impacto frente a esfuerzo</h2>
+<table>
+<thead><tr><th>#</th><th>Acción</th><th>Impacto</th><th>Esfuerzo</th><th>Plazo</th></tr></thead><tbody>
+<tr><td>1</td><td>Separar y validar el JSON-LD</td><td>Alto</td><td>30 min</td><td>Inmediato</td></tr>
+<tr><td>2</td><td>Redirección 301 de <code>www</code> y <code>http</code></td><td>Medio</td><td>15 min</td><td>Inmediato</td></tr>
+<tr><td>3</td><td>Comprimir imágenes y añadir <code>lazy</code> + dimensiones</td><td>Alto</td><td>3 h</td><td>Semana 1</td></tr>
+<tr><td>4</td><td>Sitemap con todas las URLs y <code>lastmod</code></td><td>Medio</td><td>30 min</td><td>Semana 1</td></tr>
+<tr><td>5</td><td>Cinco páginas de servicio con URL propia</td><td>Muy alto</td><td>20 h</td><td>Mes 1</td></tr>
+<tr><td>6</td><td>Versión en inglés con <code>hreflang</code></td><td>Alto</td><td>12 h</td><td>Mes 1</td></tr>
+<tr><td>7</td><td>Ampliar <code>sameAs</code> con LinkedIn y GBP</td><td>Medio</td><td>1 h</td><td>Mes 1</td></tr>
+<tr><td>8</td><td>Corregir espacios del H1</td><td>Bajo</td><td>10 min</td><td>Mes 1</td></tr>
+</tbody></table>
+<p>Las tres primeras acciones suman menos de cuatro horas y resuelven un problema crítico y uno alto. No hay razón para esperar.</p>
+<hr>
+<h2>7. Cómo se conecta con el baseline GEO</h2>
+<p>Los dos estudios se explican mutuamente.</p>
+<p>El baseline midió <strong>qué pasa</strong>: 44,4 % de visibilidad, 0 menciones en las seis consultas conceptuales, 24,4 % de citas verificables.</p>
+<p>Esta auditoría explica <strong>por qué</strong>: no hay documentos que recuperar, y el Schema que debía reforzar la entidad no se parsea.</p>
+<p>Y juntos definen <strong>qué hacer</strong>: primero el Schema y las redirecciones, después las páginas de servicio, y solo entonces volver a medir. La secuencia importa: publicar contenido sobre un sitio con datos estructurados rotos deja la mitad del trabajo sin efecto.</p>
+<hr>
+<h2>8. Limitaciones</h2>
+<ol>
+<li><strong>Sin Search Console ni registros del servidor.</strong> No se evaluó indexación real, consultas ni rastreo de bots.</li>
+<li><strong>Sin Core Web Vitals de campo.</strong> PageSpeed Insights devolvió 429 durante la sesión; el rendimiento se juzga por causas estructurales, no por una puntuación.</li>
+<li><strong>Una sola medición.</strong> Los tiempos de respuesta varían con la red y la hora.</li>
+<li><strong>Sin acceso al CMS.</strong> Las soluciones se describen a nivel de implementación, no de archivo concreto.</li>
+<li><strong>Sin auditoría de enlaces entrantes.</strong> No se midió perfil de backlinks ni autoridad de dominio.</li>
+</ol>
+<hr>
+<h2>9. Conclusión</h2>
+<p>Este sitio no necesita una reconstrucción. Necesita dos correcciones de media hora y una decisión de arquitectura que lleva un mes.</p>
+<p>La corrección del Schema es la más rentable de todo el proyecto: media hora para que la entidad vuelva a ser legible. La arquitectura de contenido es la que cambia el resultado, y es la que ningún competidor del sector ha hecho todavía.</p>
+</main>
+<footer class="rp-foot"><div class="rp-wrap">
+<span>CristÃ³bal RÃ­squez â€” SEO &amp; GEO Analyst</span>
+<span><a href="../index.html">risquezzz.github.io</a></span>
+</div></footer>
+</body></html>

@@ -46,6 +46,7 @@
     <a class="brand" href="#top">Cristóbal Rísquez</a>
     <nav>
       <a href="#case">Case study</a>
+      <a href="#audit">Audit</a>
       <a href="report/en.html">Report</a>
       <a href="#method">Method</a>
       <a href="#about">About</a>
@@ -146,6 +147,55 @@
       <a class="btn" href="report/IMETAL_GEO_Report_EN.pdf">Download the full report (PDF)</a>
       <a class="btn ghost" href="report/en.html">Read it online</a>
       <a class="btn ghost" href="report/es.html" hreflang="es" lang="es">Leer en español</a>
+    </p>
+  </section>
+
+  <section id="audit" class="wrap section" style="border-top:1px solid var(--line)">
+    <h2>Case study 2 — Technical SEO audit</h2>
+    <p class="section-lede">
+      An external audit of the same client's site: crawling, structured data, performance and
+      content architecture. The GEO baseline measured the symptom; this explains the cause.
+    </p>
+
+    <div class="grid-3">
+      <div class="stat-card">
+        <span class="stat-label">HTML pages</span>
+        <span class="stat-value">1</span>
+        <span class="stat-note">Anchor navigation only. Zero internal URLs.</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Image weight</span>
+        <span class="stat-value">7.4<span>MB</span></span>
+        <span class="stat-note">35 JPEG files, no lazy loading, no responsive sizes.</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Structured data</span>
+        <span class="stat-value">0</span>
+        <span class="stat-note">The JSON-LD block is invalid: JavaScript was pasted inside it.</span>
+      </div>
+    </div>
+
+    <ol class="findings">
+      <li>
+        <strong>The Schema cannot be parsed.</strong>
+        A security script sits inside the application/ld+json block, so the LocalBusiness
+        markup is invisible to every crawler.
+      </li>
+      <li>
+        <strong>There is nothing to cite.</strong>
+        One page and 1,172 words for five service lines. That is the root cause of the zero
+        mentions in the GEO baseline.
+      </li>
+      <li>
+        <strong>Two hosts serve the same content.</strong>
+        www and non-www both return 200 with no redirect.
+      </li>
+    </ol>
+
+    <p class="report-links">
+      <a class="btn" href="audit/Technical_SEO_Audit_EN.pdf">Download the audit (PDF)</a>
+      <a class="btn ghost" href="audit/en.html">Read it online</a>
+      <a class="btn ghost" href="audit/es.html" hreflang="es" lang="es">Leer en español</a>
     </p>
   </section>
 
