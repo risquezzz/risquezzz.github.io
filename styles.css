@@ -171,3 +171,7 @@ footer.site .wrap{
   body{font-size:11pt}
   .section{padding:20px 0}
 }
+
+/* Report links
+ */
+.report-links{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 0}
