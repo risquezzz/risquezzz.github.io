@@ -1,76 +1,57 @@
-# Portfolio — Cristóbal Rísquez
+# Cristóbal Rísquez — SEO & GEO Analyst
 
-Static one-page portfolio for GitHub Pages. No build step, no dependencies, no trackers.
+Personal portfolio and applied research on how brands appear in AI-generated answers.
 
-## Files
+**Live site:** https://risquezzz.github.io/
 
-| File | Purpose |
+---
+
+## What this repository contains
+
+Three artefacts built from a single measurement project, plus the methodology behind them.
+
+| Path | What it is |
 |---|---|
-| `index.html` | The page. Content, structure and structured data. |
-| `styles.css` | All styling. |
-| `robots.txt` | Allows crawlers, points to the sitemap. |
-| `sitemap.xml` | Single URL sitemap. |
+| `index.html` | Portfolio landing page |
+| `report/` | GEO visibility baseline for IMETAL, C.A. — 90 observations across ChatGPT, Gemini and Perplexity, in English and Spanish, as HTML and PDF |
+| `audit/` | Technical SEO audit of the same site — structured data, performance, duplicate hosts, content architecture, in English and Spanish |
+| `dashboard/` | Interactive view of the 90-observation dataset, plus `data.csv` with the raw table |
+| `styles.css` | Styling for the landing page |
+| `robots.txt`, `sitemap.xml` | Crawler directives and URL index |
 
-## Before publishing: replace these placeholders
+## The project in one paragraph
 
-Search for `YOUR` in `index.html`, `robots.txt` and `sitemap.xml`.
+IMETAL is an industrial pump and rotating-equipment repair company in El Tigre, Venezuela. I wrote 30 unbranded buyer prompts across four intents, ran each one in a fresh chat in three AI engines with memory disabled, and recorded 90 observations: full answer, mention, recommendation, cited URLs and competitors. Visibility came out at 44.4%, but the useful finding was the distribution — 66.7% on transactional prompts against 0 mentions across the six purely conceptual ones. The technical audit explains why: the site is a single page with a broken JSON-LD block, so there is nothing for an engine to retrieve or cite.
 
-| Placeholder | Replace with |
-|---|---|
-| `YOURUSERNAME` | Your GitHub username (used in canonical, OG and JSON-LD URLs) |
-| `YOURPROFILE` | Your LinkedIn slug, e.g. `cristobalrisquez` |
-| `YOUR@EMAIL.COM` | Your email address |
+## Method, in short
 
-Example: if your username is `crisrisquez`, every `https://YOURUSERNAME.github.io/`
-becomes `https://crisrisquez.github.io/`.
+1. Prompts written as real buying questions, with no brand name in any of them.
+2. One fresh conversation per prompt, memory off, to keep observations independent.
+3. Full answer captured per row, not a summary.
+4. Three metrics kept separate: mention, recommendation, citation.
+5. All 40 mentions reviewed by hand; an automatic rule over-counted by eight.
+6. Limits stated before conclusions: single day, three of four surfaces, undisclosed model versions.
 
-## Option A — upload from the browser (no tools needed)
+## Data
 
-1. Create a repository at <https://github.com/new> named exactly `YOURUSERNAME.github.io`.
-2. Set it to **Public**. Do not add a README (you will upload one).
-3. In the empty repo, click **uploading an existing file**.
-4. Drag the four files (`index.html`, `styles.css`, `robots.txt`, `sitemap.xml`).
-5. Commit.
-6. Go to **Settings → Pages**. Under *Build and deployment*, set Source = **Deploy from a branch**,
-   Branch = **main**, folder = **/ (root)**. Save.
-7. Wait 1–2 minutes. Your site is at `https://YOURUSERNAME.github.io/`.
+`dashboard/data.csv` is the fact table: 90 rows, one per prompt × engine, with binary flags for mention, recommendation and citation.
 
-## Option B — with Git installed
+The consolidated workbook, the raw answers and the competitor inventory live outside this repository, in the project folder. The numbers published on the site all trace back to that workbook.
 
-```bash
-git init
-git add .
-git commit -m "Portfolio: SEO & GEO analyst"
-git branch -M main
-git remote add origin https://github.com/YOURUSERNAME/YOURUSERNAME.github.io.git
-git push -u origin main
-```
+No client-confidential information is included. Everything published comes from public AI outputs and public web data.
 
-Then enable Pages in Settings → Pages as in step 6 above.
+## Technical notes
 
-## After publishing
+- Static HTML and CSS. No framework, no build step, no JavaScript on the landing page.
+- JSON-LD on the landing page declares the author as a `Person` with `knowsAbout`, and the case study as an `Article`.
+- Report and audit pages are generated from Markdown sources, then printed to PDF.
+- Deployed with GitHub Pages from the `main` branch.
 
-- [ ] Open the site and check the email and LinkedIn links work.
-- [ ] Test on a phone (the layout collapses at 820px).
-- [ ] Add the URL to your LinkedIn **Featured** section and to your headline.
-- [ ] Submit `https://YOURUSERNAME.github.io/sitemap.xml` in Google Search Console.
-- [ ] Check the page in <https://pagespeed.web.dev/> — it should score high; it is one HTML file and one CSS file.
+## Local preview
 
-## Editing content
+Clone the repository and open `index.html` in a browser. Relative links between sections work from disk; the PDFs open locally as well.
 
-Everything lives in `index.html`. The numbers in the case study come from
-`IMETAL_GEO_Baseline_Ronda2.xlsx`:
+## Contact
 
-- AI Visibility 40/90 = 44.4%
-- Recommendation per mention 30/40 = 75.0%
-- Citation Rate 22/90 = 24.4%
-- By intent: 66.7 / 56.7 / 30.0 / 26.7
-
-If the dataset changes, update those four blocks and the table.
-
-## Notes
-
-- The `<script type="application/ld+json">` block declares you as a `Person` with
-  `knowsAbout` and links the case study as an `Article`. Keep it: it is the part of
-  the page that AI crawlers can parse as an entity.
-- No JavaScript is used. Nothing to break, nothing to block.
+- Email: cristobalrisquez.1@gmail.com
+- LinkedIn: https://www.linkedin.com/in/crist%C3%B3bal-r%C3%ADsquez-a76523441/
