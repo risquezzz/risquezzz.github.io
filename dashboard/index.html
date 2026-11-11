@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEO Measurement Dashboard — IMETAL, C.A.</title>
+<meta name="description" content="AI visibility dashboard for the IMETAL GEO baseline: 90 observations across ChatGPT, Gemini and Perplexity, by intent and service line.">
+<link rel="canonical" href="https://risquezzz.github.io/dashboard/">
+<style>
+:root{
+  --ink:#14181d; --ink2:#3d4650; --muted:#6b7683; --line:#e3e7ec;
+  --bg:#fff; --alt:#f7f8fa; --accent:#0f5c4a; --accent2:#2f7d63;
+  --warn:#b45309; --soft:#e8f2ee;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+header.top{border-bottom:1px solid var(--line);padding:18px 0}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+header.top a{color:var(--accent);text-decoration:none;font-size:14px}
+header.top span{font-size:13px;color:var(--muted)}
+h1{font-size:30px;letter-spacing:-.02em;margin:36px 0 6px;font-weight:680}
+.sub{color:var(--ink2);margin:0 0 6px}
+.meta{color:var(--muted);font-size:13px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+   margin:40px 0 14px;font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.kpi .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font-size:32px;font-weight:680;letter-spacing:-.03em;color:var(--accent);line-height:1.1;margin-top:4px}
+.kpi .d{font-size:12px;color:var(--muted)}
+
+.panel{border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-top:8px}
+.bar-row{display:grid;grid-template-columns:150px 1fr 90px;gap:12px;align-items:center;margin-bottom:12px}
+.bar-row:last-child{margin-bottom:0}
+.bar-row .lbl{font-size:14px;color:var(--ink)}
+.bar-row .track{height:22px;background:var(--alt);border-radius:5px;overflow:hidden;border:1px solid var(--line)}
+.bar-row .fill{height:100%;background:var(--accent);border-radius:4px 0 0 4px}
+.bar-row .val{font-size:13px;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.bar-row .val b{color:var(--ink)}
+.bar-row.alt .fill{background:var(--accent2)}
+.bar-row.zero .fill{background:#d9dee4}
+
+.funnel{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:6px}
+.fstep{border-radius:8px;padding:16px;text-align:center;color:#fff;background:var(--accent)}
+.fstep .n{font-size:26px;font-weight:700;line-height:1}
+.fstep .t{font-size:12px;opacity:.9;margin-top:4px}
+.fstep:nth-child(2){background:var(--accent2)}
+.fstep:nth-child(3){background:#4f8f78}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--ink)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--alt)}
+
+.note{margin-top:34px;padding:14px 16px;background:var(--soft);
+      border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:14px;color:var(--ink2)}
+.note b{color:var(--ink)}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+
+@media (max-width:760px){
+  .kpis{grid-template-columns:1fr 1fr}
+  .bar-row{grid-template-columns:110px 1fr 70px}
+  h1{font-size:24px}
+}
+@media print{
+  header.top, footer{display:none}
+  .panel{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="../index.html">&larr; Back to portfolio</a>
+    <span>GEO baseline · IMETAL, C.A.</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>AI visibility dashboard</h1>
+  <p class="sub">IMETAL, C.A. — 30 buyer prompts × 3 engines, each in a fresh chat with memory disabled.</p>
+  <p class="meta">90 observations · measured 10 November 2026 · ChatGPT, Gemini, Perplexity</p>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="k">AI Visibility</div>
+      <div class="v">44.4%</div>
+      <div class="d">40 of 90 answers</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Recommendation Rate</div>
+      <div class="v">33.3%</div>
+      <div class="d">30 of 90 answers</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Recommendation per mention</div>
+      <div class="v">75.0%</div>
+      <div class="d">30 of 40 mentions</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Citation Rate</div>
+      <div class="v">24.4%</div>
+      <div class="d">22 of 90 answers</div>
+    </div>
+  </div>
+
+  <h2>Visibility by engine</h2>
+  <div class="panel">
+    <div class="bar-row">
+      <span class="lbl">ChatGPT</span>
+      <div class="track"><div class="fill" style="width:60%"></div></div>
+      <span class="val"><b>60.0%</b> · 18/30</span>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">Perplexity</span>
+      <div class="track"><div class="fill" style="width:40%"></div></div>
+      <span class="val"><b>40.0%</b> · 12/30</span>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">Gemini</span>
+      <div class="track"><div class="fill" style="width:33.3%"></div></div>
+      <span class="val"><b>33.3%</b> · 10/30</span>
+    </div>
+  </div>
+
+  <h2>Visibility by buyer intent</h2>
+  <div class="panel">
+    <div class="bar-row">
+      <span class="lbl">Transactional</span>
+      <div class="track"><div class="fill" style="width:66.7%"></div></div>
+      <span class="val"><b>66.7%</b> · 10/15</span>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">Commercial</span>
+      <div class="track"><div class="fill" style="width:56.7%"></div></div>
+      <span class="val"><b>56.7%</b> · 17/30</span>
+    </div>
+    <div class="bar-row alt">
+      <span class="lbl">Informational</span>
+      <div class="track"><div class="fill" style="width:30%"></div></div>
+      <span class="val"><b>30.0%</b> · 9/30</span>
+    </div>
+    <div class="bar-row alt">
+      <span class="lbl">Comparative</span>
+      <div class="track"><div class="fill" style="width:26.7%"></div></div>
+      <span class="val"><b>26.7%</b> · 4/15</span>
+    </div>
+  </div>
+
+  <h2>From mention to citation</h2>
+  <div class="panel">
+    <div class="funnel">
+      <div class="fstep" style="width:100%">
+        <div class="n">40</div>
+        <div class="t">answers mentioned the brand</div>
+      </div>
+      <div class="fstep" style="width:75%">
+        <div class="n">30</div>
+        <div class="t">recommended it</div>
+      </div>
+      <div class="fstep" style="width:55%">
+        <div class="n">22</div>
+        <div class="t">cited imetal.com.ve with a URL</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>By service line</h2>
+  <div class="panel">
+    <div class="bar-row">
+      <span class="lbl">Spare parts</span>
+      <div class="track"><div class="fill" style="width:66.7%"></div></div>
+      <span class="val"><b>66.7%</b> · 6/9</span>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">Rotating equipment</span>
+      <div class="track"><div class="fill" style="width:55.6%"></div></div>
+      <span class="val"><b>55.6%</b> · 10/18</span>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">Integrated services</span>
+      <div class="track"><div class="fill" style="width:55.6%"></div></div>
+      <span class="val"><b>55.6%</b> · 5/9</span>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">Pumps</span>
+      <div class="track"><div class="fill" style="width:50%"></div></div>
+      <span class="val"><b>50.0%</b> · 15/30</span>
+    </div>
+    <div class="bar-row alt">
+      <span class="lbl">CNC machining</span>
+      <div class="track"><div class="fill" style="width:33.3%"></div></div>
+      <span class="val"><b>33.3%</b> · 2/6</span>
+    </div>
+    <div class="bar-row alt">
+      <span class="lbl">Infrastructure</span>
+      <div class="track"><div class="fill" style="width:33.3%"></div></div>
+      <span class="val"><b>33.3%</b> · 1/3</span>
+    </div>
+    <div class="bar-row alt">
+      <span class="lbl">General services</span>
+      <div class="track"><div class="fill" style="width:33.3%"></div></div>
+      <span class="val"><b>33.3%</b> · 1/3</span>
+    </div>
+    <div class="bar-row zero">
+      <span class="lbl">Rig logistics</span>
+      <div class="track"><div class="fill" style="width:0"></div></div>
+      <span class="val"><b>0.0%</b> · 0/9</span>
+    </div>
+    <div class="bar-row zero">
+      <span class="lbl">Compressors</span>
+      <div class="track"><div class="fill" style="width:0"></div></div>
+      <span class="val"><b>0.0%</b> · 0/3</span>
+    </div>
+  </div>
+
+  <h2>Full table</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th class="num">Obs.</th><th class="num">Mentions</th><th class="num">Recs</th><th class="num">Citations</th><th class="num">Visibility</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Total</strong></td><td class="num">90</td><td class="num">40</td><td class="num">30</td><td class="num">22</td><td class="num">44.4%</td></tr>
+        <tr><td>ChatGPT</td><td class="num">30</td><td class="num">18</td><td class="num">12</td><td class="num">18</td><td class="num">60.0%</td></tr>
+        <tr><td>Gemini</td><td class="num">30</td><td class="num">10</td><td class="num">8</td><td class="num">4</td><td class="num">33.3%</td></tr>
+        <tr><td>Perplexity</td><td class="num">30</td><td class="num">12</td><td class="num">10</td><td class="num">0</td><td class="num">40.0%</td></tr>
+        <tr><td>Informational</td><td class="num">30</td><td class="num">9</td><td class="num">7</td><td class="num">5</td><td class="num">30.0%</td></tr>
+        <tr><td>Commercial</td><td class="num">30</td><td class="num">17</td><td class="num">15</td><td class="num">10</td><td class="num">56.7%</td></tr>
+        <tr><td>Comparative</td><td class="num">15</td><td class="num">4</td><td class="num">1</td><td class="num">2</td><td class="num">26.7%</td></tr>
+        <tr><td>Transactional</td><td class="num">15</td><td class="num">10</td><td class="num">7</td><td class="num">5</td><td class="num">66.7%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Two things this dashboard does not show.</b> Perplexity does not expose source URLs through its
+    interface, so its zero citations means "not measurable", not "not cited". And the recommendation
+    column was validated by hand across the 40 mentions; an automatic rule had over-counted by eight.
+  </div>
+
+  <div class="note">
+    <b>Source.</b> The underlying dataset is a 90-row table (one row per prompt × engine) with binary
+    flags for mention, recommendation and citation. It is published as
+    <a href="data.csv">data.csv</a> and can be connected directly to Looker Studio or Sheets.
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Cristóbal Rísquez — SEO &amp; GEO Analyst</span>
+    <span><a href="../report/en.html">Full methodology report</a> · <a href="../index.html">Portfolio</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
